@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sleep Outside | Product Details</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <header class="critical">
+      <div class="logo">
+        <!-- Ruta corregida apuntando a la carpeta public/images/logos/ -->
+        <img src="/images/logos/p2.jpg" alt="Tent logo" />
+        <a href="../index.html">Sleep<span class="highlight">Outside</span></a>
+      </div>
+      <div class="cart">
+        <a href="../cart/index.html">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 50 50"
+            width="25"
+            height="25"
+          >
+            <path
+              d="M 41.5 12 L 36.45 12 C 35.53 7.42 31.48 4 26.5 4 C 21.52 4 17.47 7.42 16.55 12 L 11.5 12 C 10.12 12 9 13.12 9 14.5 C 9 14.77 9.04 15.04 9.12 15.3 L 13.12 35.3 C 13.48 37.11 15.07 38.5 16.92 38.5 L 36.08 38.5 C 37.93 38.5 39.52 37.11 39.88 35.3 L 43.88 15.3 C 43.96 15.04 44 14.77 44 14.5 C 44 13.12 42.88 12 41.5 12 Z M 26.5 6 C 30.14 6 33.16 8.57 33.85 12 L 19.15 12 C 19.84 8.57 22.86 6 26.5 6 Z M 36.08 36.5 L 16.92 36.5 C 16.01 36.5 15.24 35.84 15.08 34.95 L 11.38 16 L 41.62 16 L 37.92 34.95 C 37.76 35.84 36.99 36.5 36.08 36.5 Z"
+            />
+          </svg>
+        </a>
+      </div>
+    </header>
+
+    <main class="divider">
+      <section class="product-detail">
+        <h3 id="productName"></h3>
+        <h2 class="divider" id="productNameWithoutBrand"></h2>
+
+        <img class="divider" id="productImage" src="" alt="" />
+
+        <p class="product-card__price" id="productFinalPrice"></p>
+        <p class="product__color" id="productColorName"></p>
+        <p class="product__description" id="productDescriptionHtmlSimple"></p>
+
+        <div class="product-detail__add">
+          <button id="addToCart" data-id="">Add to Cart</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>&copy; <span id="year"></span> | Sleep Outside | BYU-Idaho</footer>
+
+    <!-- Script specific to the product page entry point -->
+    <script src="../js/product.js" type="module"></script>
+  </body>
+</html>

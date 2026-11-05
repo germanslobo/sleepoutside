@@ -1,28 +1,15 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
-import ProductData from "./ProductData.mjs";
+import ExternalServices from './productData.mjs';
+import ProductDetails from './productDetails.mjs';
+import { getParam } from './utils.mjs';
 
-const dataSource = new ProductData("tents");
+// 1. Obtenemos el ID del producto desde la URL (ej: ?product=880RR)
+const productId = getParam('product');
 
-function addProductToCart(product) {
-  // 1. Obtener lo que ya existe en Local Storage o un arreglo vacío
-  const cart = getLocalStorage("so-cart") || [];
+// 2. Instanciamos el servicio de datos para la categoría 'tents'
+const dataSource = new ExternalServices('tents');
 
-  // 2. Si por algún motivo cart no fuera un arreglo (por datos viejos guardados), inicializar como []
-  const cartList = Array.isArray(cart) ? cart : [cart];
+// 3. Creamos la instancia de ProductDetails pasándole el ID y los datos
+const product = new ProductDetails(productId, dataSource);
 
-  // 3. Agregar el nuevo producto al arreglo
-  cartList.push(product);
-
-  // 4. Guardar la lista actualizada de vuelta en Local Storage
-  setLocalStorage("so-cart", cartList);
-}
-// add to cart button event handler
-async function addToCartHandler(e) {
-  const product = await dataSource.findProductById(e.target.dataset.id);
-  addProductToCart(product);
-}
-
-// add listener to Add to Cart button
-document
-  .getElementById("addToCart")
-  .addEventListener("click", addToCartHandler);
+// 4. Inicializamos la carga y renderizado
+product.init();
