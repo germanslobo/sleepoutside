@@ -1,3 +1,11 @@
+import { loadHeaderFooter } from "./utils.mjs";
+
+loadHeaderFooter();
+
+// ... el resto del código de productos ...
+
+
+
 import ExternalServices from './productData.mjs';
 import ProductDetails from './productDetails.mjs';
 import { getParam } from './utils.mjs';

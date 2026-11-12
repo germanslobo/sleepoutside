@@ -1,9 +1,18 @@
-import { getLocalStorage } from './utils.mjs';
+import { loadHeaderFooter, getLocalStorage } from "./utils.mjs";
 
+// 1. Cargamos el header y footer dinámicamente
+loadHeaderFooter();
+
+// 2. Renderizamos el contenido del carrito
 function renderCartContents() {
-  const cartItems = getLocalStorage('so-cart');
-  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-  document.querySelector('.product-list').innerHTML = htmlItems.join('');
+  const cartItems = getLocalStorage('so-cart') || [];
+  
+  if (cartItems.length > 0) {
+    const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+    document.querySelector('.product-list').innerHTML = htmlItems.join('');
+  } else {
+    document.querySelector('.product-list').innerHTML = '<p>Your cart is empty.</p>';
+  }
 }
 
 function cartItemTemplate(item) {
@@ -17,7 +26,7 @@ function cartItemTemplate(item) {
   <a href="#">
     <h2 class="card__name">${item.Name}</h2>
   </a>
-  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
+  <p class="cart-card__color">${item.Colors && item.Colors[0] ? item.Colors[0].ColorName : ''}</p>
   <p class="cart-card__quantity">qty: 1</p>
   <p class="cart-card__price">$${item.FinalPrice}</p>
 </li>`;
