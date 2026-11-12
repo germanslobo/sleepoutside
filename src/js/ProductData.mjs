@@ -1,27 +1,27 @@
-const baseURL = '../json/';
+const baseURL = import.meta.env.VITE_SERVER_URL;
 
-async function convertToJson(res) {
-  const jsonResponse = await res.json();
+function convertToJson(res) {
   if (res.ok) {
-    return jsonResponse;
+    return res.json();
   } else {
-    throw new Error({ name: 'servicesError', message: jsonResponse });
+    throw new Error('Bad Response');
   }
 }
 
-export default class ExternalServices {
-  constructor(category) {
-    this.category = category;
+export default class ProductData {
+  constructor() {
+    // Ya no se requiere la categoría ni la ruta local en el constructor
   }
 
-  async getData() {
-    const response = await fetch(`${baseURL}${this.category}.json`);
+  async getData(category) {
+    const response = await fetch(`${baseURL}products/search/${category}`);
     const data = await convertToJson(response);
-    return data;
+    return data.Result;
   }
 
   async findProductById(id) {
-    const products = await this.getData();
-    return products.find((item) => item.Id === id);
+    const response = await fetch(`${baseURL}product/${id}`);
+    const data = await convertToJson(response);
+    return data.Result;
   }
 }
