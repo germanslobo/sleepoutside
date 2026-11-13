@@ -12,6 +12,7 @@
 
   <!-- Contenido principal de la página -->
   <main class="divider">
+    <!-- Banner Principal (Hero) -->
     <div class="hero">
       <img src="/images/banner-sm.jpg" alt="image of a high mountain lake">
       <div class="logo">
@@ -19,17 +20,43 @@
         <p>Top-Quality Tents & Gear</p>
       </div>
     </div>
-    <section class="products">
-      <h2>Top Products</h2>
-      <!-- Contenedor que busca main.js para mostrar los productos -->
-      <ul class="product-list"></ul>
+
+    <!-- Sección de Categorías -->
+    <section class="categories">
+      <h2>Top Categories</h2>
+      <ul class="category-list" style="display: flex; justify-content: space-around; list-style: none; padding: 0; text-align: center; flex-wrap: wrap;">
+        <li>
+          <a href="/product_listing/index.html?category=tents">
+            <img src="/images/noun_Tent_2517.svg" alt="Tents icon" width="60">
+            <p>Tents</p>
+          </a>
+        </li>
+        <li>
+          <a href="/product_listing/index.html?category=backpacks">
+            <img src="/images/noun_Backpack_65884.svg" alt="Backpacks icon" width="60">
+            <p>Backpacks</p>
+          </a>
+        </li>
+        <li>
+          <a href="/product_listing/index.html?category=sleeping-bags">
+            <img src="/images/noun_Backpack_2389275.svg" alt="Sleeping Bags icon" width="60">
+            <p>Sleeping Bags</p>
+          </a>
+        </li>
+        <li>
+          <a href="/product_listing/index.html?category=hammocks">
+            <img src="/images/logos/p2.jpg" alt="Hammocks icon" width="60">
+            <p>Hammocks</p>
+          </a>
+        </li>
+      </ul>
     </section>
   </main>
 
   <!-- Footer dinámico -->
   <footer id="main-footer"></footer>
 
-  <!-- ¡CRUCIAL! Esta etiqueta es la que enciende el motor de JavaScript -->
+  <!-- Motor de JavaScript principal -->
   <script type="module" src="./js/main.js"></script>
 </body>
 </html>
