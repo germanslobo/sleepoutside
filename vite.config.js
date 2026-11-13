@@ -2,8 +2,8 @@ import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  // Eliminamos root: 'src' para evitar la duplicación de carpetas en Render
-  publicDir: resolve(__dirname, 'src/public'), // Ajustado a src/public si ahí tienes tus imágenes
+  // La carpeta public está en la raíz del proyecto
+  publicDir: resolve(__dirname, 'public'), 
 
   build: {
     outDir: 'dist',
