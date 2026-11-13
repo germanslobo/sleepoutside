@@ -2,22 +2,12 @@ import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  root: 'src',
-  // Configuración para que Vite ubique los recursos públicos en la raíz
-  publicDir: resolve(__dirname, 'public'),
-
-  resolve: {
-    alias: {
-      // Alias para apuntar a la carpeta src/js
-      '@js': resolve(__dirname, 'src/js'),
-      // Alias para apuntar a la carpeta src/css
-      '@css': resolve(__dirname, 'src/css'),
-    },
-  },
+  // Eliminamos root: 'src' para evitar la duplicación de carpetas en Render
+  publicDir: resolve(__dirname, 'src/public'), // Ajustado a src/public si ahí tienes tus imágenes
 
   build: {
-    outDir: '../dist',
-    emptyOutDir: true, // Buena práctica para limpiar la carpeta dist antes de compilar
+    outDir: 'dist',
+    emptyOutDir: true,
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'src/index.html'),
