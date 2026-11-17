@@ -24,6 +24,9 @@ export default class ProductDetails {
     let cart = getLocalStorage('so-cart') || [];
     cart.push(this.product);
     setLocalStorage('so-cart', cart);
+    
+    // Alerta de confirmación para notar que el botón sí funcionó
+    alert(`${this.product.Name} was added to cart!`);
   }
 
   renderProductDetails() {

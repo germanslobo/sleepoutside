@@ -1,12 +1,12 @@
 import { loadHeaderFooter } from "./utils.mjs";
-import ProductData from './productData.mjs';
+import ExternalServices from './ExternalServices.mjs';
 import ProductList from './productList.mjs';
 
 // 1. Cargamos el header y el footer dinámicamente
 loadHeaderFooter();
 
-// 2. Instanciamos la clase que obtiene los datos de las tiendas de campaña (categoría 'tents')
-const dataSource = new ProductData('tents');
+// 2. Instanciamos ExternalServices en lugar de ProductData
+const dataSource = new ExternalServices();
 
 // 3. Seleccionamos el elemento HTML donde se mostrará la lista de productos
 const element = document.querySelector('.product-list');
