@@ -2,11 +2,11 @@ import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  // La carpeta public está en la raíz del proyecto
+  root: resolve(__dirname, 'src'),
   publicDir: resolve(__dirname, 'public'), 
 
   build: {
-    outDir: 'dist',
+    outDir: '../dist',
     emptyOutDir: true,
     rollupOptions: {
       input: {
