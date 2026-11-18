@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, alertMessage } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
 const services = new ExternalServices();
@@ -10,7 +10,7 @@ function packageItems(items) {
       id: item.Id,
       name: item.Name,
       price: item.FinalPrice !== undefined ? item.FinalPrice : (item.ListPrice || 0),
-      quantity: 1 // Puedes ajustarlo si manejas cantidades dinámicas
+      quantity: 1
     };
   });
 }
@@ -28,7 +28,6 @@ export default class CheckoutProcess {
 
   init() {
     this.list = getLocalStorage(this.key) || [];
-    // Nos aseguramos de aplanar el array por si viene anidado
     this.list = this.list.flat();
     this.calculateItemSummary();
   }
@@ -57,9 +56,7 @@ export default class CheckoutProcess {
   }
 
   calculateOrdertotal() {
-    // Cálculo estimado de envío: $10 para el primer ítem + $2 por cada ítem adicional
     this.shipping = this.list.length > 0 ? 10 + (this.list.length - 1) * 2 : 0;
-    // Impuesto del 6%
     this.tax = this.itemTotal * 0.06;
     this.orderTotal = this.itemTotal + this.shipping + this.tax;
 
@@ -76,7 +73,6 @@ export default class CheckoutProcess {
     if (totalEl) totalEl.innerText = `$${this.orderTotal.toFixed(2)}`;
   }
 
-  // Convierte los elementos del formulario en un objeto JSON plano
   formDataToJSON(formElement) {
     const formData = new FormData(formElement);
     const convertedJSON = {};
@@ -88,33 +84,35 @@ export default class CheckoutProcess {
     return convertedJSON;
   }
 
-  // Empaqueta la orden y la envía al servidor
-  // Empaqueta la orden y la envía al servidor
- // Empaqueta la orden y la envía al servidor
   async checkout(form) {
     const formJSON = this.formDataToJSON(form);
     
-    // Asignamos los valores convirtiéndolos explícitamente a números y strings según corresponda
     formJSON.orderDate = new Date().toISOString();
     formJSON.orderTotal = Number(this.orderTotal.toFixed(2));
     formJSON.tax = Number(this.tax.toFixed(2));
     formJSON.shipping = Number(this.shipping.toFixed(2));
     formJSON.items = packageItems(this.list);
 
-    console.log("JSON enviado al servidor corregido:", JSON.stringify(formJSON, null, 2));
+    console.log("JSON enviado al servidor:", JSON.stringify(formJSON, null, 2));
 
     try {
       const res = await services.checkout(formJSON);
       console.log("Orden enviada con éxito:", res);
       
-      // Limpiamos el carrito del localStorage
       setLocalStorage(this.key, []);
-      
-      // Redirigimos a la página de éxito
       window.location.assign("/checkout/success.html");
     } catch (err) {
       console.error("Error al procesar la orden:", err);
-      alert("Error al enviar la orden. Revisa la consola para más detalles.");
+      
+      // Manejo profesional del error con alertMessage
+      const errorMessage = err.message;
+      if (typeof errorMessage === 'object' && errorMessage !== null) {
+        Object.values(errorMessage).forEach((msg) => {
+          alertMessage(msg);
+        });
+      } else {
+        alertMessage(errorMessage || "Error al enviar la orden.");
+      }
     }
   }
 }

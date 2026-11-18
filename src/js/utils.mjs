@@ -81,3 +81,29 @@ export async function loadHeaderFooter() {
     console.error("Error al cargar el header o footer (probablemente ruta 404):", error);
   }
 }
+
+// Función para mostrar alertas personalizadas no intrusivas
+export function alertMessage(message, scroll = true) {
+  // Crear un elemento div para la alerta
+  const alert = document.createElement('div');
+  alert.classList.add('alert');
+  
+  // Agregar el contenido con el mensaje y una "X" para cerrar
+  alert.innerHTML = `<p>${message}</p><span>X</span>`;
+  
+  // Escuchar clics en la alerta para detectar si se hizo clic en la "X"
+  alert.addEventListener('click', function(e) {
+    if (e.target.tagName === "SPAN") {
+      main.removeChild(this);
+    }
+  });
+  
+  // Insertar la alerta al inicio del elemento main
+  const main = document.querySelector('main');
+  main.prepend(alert);
+  
+  // Desplazar la ventana hacia arriba si scroll es true
+  if (scroll) {
+    window.scrollTo(0, 0);
+  }
+}

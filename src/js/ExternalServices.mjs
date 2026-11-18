@@ -5,9 +5,8 @@ async function convertToJson(res) {
   if (res.ok) {
     return jsonResponse;
   } else {
-    // Imprimimos el error exacto que responde el servidor en la consola
-    console.error("Detalle del error del servidor:", jsonResponse);
-    throw new Error(jsonResponse.message || JSON.stringify(jsonResponse) || 'Bad Response');
+    // Lanzamos el objeto de error estructurado requerido por la actividad
+    throw { name: 'servicesError', message: jsonResponse };
   }
 }
 
